@@ -1,28 +1,24 @@
 var dbConfig = require("./db.config");
+const mysql = require('mysql');
 
-class Connect {
-
-    static getInstance() {
-        if (!Connect.instance) {
-            Connect.instance = new Connect();
-        }
-        return Connect.instance;
-    }
+class MysqlPool {
 
     constructor() {
-        console.log("实例化mysql信息");
-        this.mysql = require('mysql');
-        this.connection = this.mysql.createConnection(dbConfig);
-        this.connection.connect();
+        this.flag = true;
+        this.pool = mysql.createPool(dbConfig);
     }
 
-    query() {
-        this.connection.query('select 1+1 as res from dual;', function (error, results, fields) {
-            if (error) throw error;
-            console.log("query success!");
-            console.log('The result is: ', results[0].res);
-        });
+    getPool() {
+        if (this.flag) {
+            this.pool.on('connection', (connection) => {
+                connection.query('SET SESSION auto_increment_increment=1');
+                this.flag = false;
+            });
+        }
+        return this.pool;
     }
+    
 }
 
-module.exports = Connect.getInstance();
+module.exports = new MysqlPool().getPool();
+
