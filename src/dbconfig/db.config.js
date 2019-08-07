@@ -1,3 +1,6 @@
+/**
+ * 数据库配置
+ */
 let config = {
     host: '127.0.0.1',
     user: 'root',
@@ -8,8 +11,9 @@ let config = {
 module.exports = config;
 
 /* equals to below */
-/* exports.host = '127.0.0.1';
-exports.user = 'root';
-exports.password = '';
-exports.database = 'fcarcmt_rap2_test';
-*/
+/**
+ exports.host = '127.0.0.1';
+ exports.user = 'root';
+ exports.password = '';
+ exports.database = 'fcarcmt_rap2_test';
+ */
