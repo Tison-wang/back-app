@@ -1,6 +1,9 @@
 var dbConfig = require("./db.config");
 const mysql = require('mysql');
 
+/**
+ * 数据库连接池配置
+ */
 class MysqlPool {
 
     constructor() {
@@ -17,7 +20,7 @@ class MysqlPool {
         }
         return this.pool;
     }
-    
+
 }
 
 module.exports = new MysqlPool().getPool();
