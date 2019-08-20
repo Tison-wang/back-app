@@ -1,6 +1,7 @@
 var express = require('express');
 var usersRouter = require('./users');
 var accountRouter = require('./account');
+var log4js = require("../src/logconfig/log4j.config");
 var router = express.Router();
 
 /* GET home page. */
