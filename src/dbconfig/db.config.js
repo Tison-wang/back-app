@@ -2,10 +2,10 @@
  * 数据库配置
  */
 let config = {
-    host: '127.0.0.1',
+    host: '10.104.113.243',
     user: 'root',
-    password: '',
-    database: 'fcarcmt_rap2_test'
+    password: 'root',
+    database: 'rap2'
 }
 
 module.exports = config;

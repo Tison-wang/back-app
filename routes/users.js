@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var log4js = require("../src/logconfig/log4j.config");
-var logger = log4js.getLogger('users');
+const express = require('express');
+const router = express.Router();
+const log4js = require("../src/logconfig/log4j.config");
+const logger = log4js.getLogger('users');
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
