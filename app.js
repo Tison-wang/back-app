@@ -39,27 +39,29 @@ app.use(session({
 
 // request valid
 app.use(function (req, res, next) {
-    logger1.info("请求拦截: " + req.url);
-    //解析用户请求路径
-    var arr = req.url.split('/');
-    //去除get请求携带的参数
-    for (var i = 0; i < arr.length; i++) {
-        arr[i] = arr[i].split('?')[0];
-    }
-    if (arr.length > 1) {
-        if (arr[2] === 'account' && (arr[3] === 'login' || arr[3] === 'logout')) {
-            next();
-        } else {
-            if (req.session.username) {
-                logger1.info(req.session.username);
-                //用户登录过
+    if (req.method !== "OPTIONS") {
+        logger1.info("url: " + req.url);
+        //解析用户请求路径
+        var arr = req.url.split('/');
+        //去除get请求携带的参数
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].split('?')[0];
+        }
+        if (arr.length > 1) {
+            if (arr[2] === 'account' && (arr[3] === 'login' || arr[3] === 'logout')) {
                 next();
             } else {
-                logger1.error('intercept：用户未登录执行登录拦截，路径为：' + req.url);
-                //res.redirect('/#/');  // 将用户重定向到登录页面
-                res.send({msg: 401});
+                if (req.session.username) {
+                    next();
+                } else {
+                    logger1.info("登录过期");
+                    //res.redirect('/#/');  // 将用户重定向到登录页面
+                    res.send({msg: 401});
+                }
             }
         }
+    } else {
+        next();
     }
 });
 

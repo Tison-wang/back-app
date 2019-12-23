@@ -7,11 +7,9 @@ const logger = log4js.getLogger('account');
 /* GET account request. */
 router.get('/login', function (req, res, next) {
 
-    logger.warn("请求：" + JSON.stringify(req.query));
     try {
-        logger.warn(req.query.password);
         req.session.username = req.query.password;
-        logger.warn(req.session.username);
+        logger.warn("登录成功，user=" + req.session.username);
     } catch (e) {
         throw e;
     }
